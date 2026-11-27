@@ -11,7 +11,7 @@ le Case Romane (Isolato IV), la Basilica, il Museo e il Lago Verde con i laghett
 - **Mappa illustrata** con segnaposto numerati: si sceglie una tappa dalla mappa o dall'elenco.
 - **Punti da scoprire** nelle immagini: ogni «?» apre la storia, una parola nuova o una curiosità.
 - **Quiz** per ogni tappa: risposta giusta = timbro ★ e punti (10 al primo tentativo, 5 al secondo, 2 poi).
-- **Lettura ad alta voce** dei testi, per i bambini che leggono ancora con fatica.
+- **Lettura ad alta voce** con una voce italiana naturale (file audio in `audio/`), per i bambini che leggono ancora con fatica. Se un file audio manca, si usa la voce del browser.
 - **Linea del tempo** della storia di Tindari.
 - **Attestato di Piccolo Archeologo** stampabile o salvabile in PDF, con spazio per la firma dello studente e dell'insegnante.
 - Pulsante **Ricomincia** per azzerare punti e timbri (utile sui computer condivisi).
@@ -31,6 +31,8 @@ Non serve installare nulla: basta aprire `index.html` con un browser.
 | `data.js` | Testi, tappe, quiz, posizione di segnaposto e punti, crediti |
 | `app.js` | Logica: mappa, punti, quiz, attestato |
 | `img/` | Illustrazioni |
+| `audio/` | Letture ad alta voce (mp3), una per ogni testo |
+| `tools/` | Script per rigenerare gli audio dopo aver cambiato i testi |
 
 ## Personalizzare i contenuti
 
@@ -40,6 +42,12 @@ Quasi tutto si modifica in `data.js`:
 - **Posizione** dei segnaposto (`pin`) e dei punti «?» (`hs`), in percentuale rispetto all'immagine;
 - **Crediti** nel tooltip «Informazioni» (`CREDITS`): autore, anno di laurea, ateneo e disclaimer;
 - **Logo** dell'università: `img/logo-kore.svg` (se manca compare il nome a testo).
+
+## Voce
+
+Gli audio sono generati con [Piper](https://github.com/OHF-Voice/piper1-gpl), sintesi vocale libera e offline,
+con la voce italiana «Paola» (dati con licenza CC0). Se si modificano i testi in `data.js`,
+si rigenerano con `python3 tools/genera_audio.py` (istruzioni nel file).
 
 ## Crediti e disclaimer
 

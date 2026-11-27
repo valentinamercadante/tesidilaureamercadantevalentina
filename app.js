@@ -12,14 +12,26 @@ const LOGO = `<circle r="36" fill="#d9a441" stroke="#3a2a1d" stroke-width="3"/>
   <rect x="-18" y="17" width="36" height="7" rx="2" fill="#f4ecd8" stroke="#3a2a1d" stroke-width="2.4"/>`;
 
 // ---------- Voce ----------
-function speak(t) {
+let player = null;
+function speakTTS(t) {
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(t); u.lang = "it-IT"; u.rate = 0.92;
   const v = speechSynthesis.getVoices().find((x) => x.lang.startsWith("it")); if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
-const hush = () => "speechSynthesis" in window && speechSynthesis.cancel();
+// Voce registrata (audio/<chiave>.mp3); se il file manca usa la voce del browser.
+function speak(t, key) {
+  hush();
+  if (!key) return speakTTS(t);
+  const a = (player = new Audio(`audio/${key}.mp3`));
+  a.onerror = () => { if (player === a) speakTTS(t); };
+  a.play().catch(() => {});
+}
+function hush() {
+  if (player) { player.onerror = null; player.pause(); player = null; }
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+}
 
 // ---------- Adattamento immagine (contain) ----------
 function fit(box, el, w, h) {
@@ -86,10 +98,10 @@ function backHome() {
 function step(d) { const i = SPOTS.indexOf(cur); closeCard(true); openStop(SPOTS[(i + d + SPOTS.length) % SPOTS.length].id); }
 
 // ---------- Schede ----------
-function openCard(title, html, say) {
+function openCard(title, html, say, key) {
   $("c-title").textContent = title; $("c-body").innerHTML = html;
   $("c-next").classList.add("hidden"); $("card").classList.remove("hidden");
-  $("c-listen").onclick = () => speak(say); speak(say);
+  $("c-listen").onclick = () => speak(say, key); speak(say, key);
 }
 function closeCard(silent) { hush(); $("card").classList.add("hidden"); }
 function addPoints(n, why) {
@@ -104,14 +116,14 @@ function openHot(k) {
   if (k === "story") { title = hot.label + " – la storia"; html = cur.story.map((p) => `<p>${p}</p>`).join(""); say = cur.story.join(" "); }
   if (k === "word") { title = "Parola nuova: " + cur.word[0]; html = `<p>${cur.word[1]}</p>`; say = "Parola nuova: " + cur.word.join(". "); }
   if (k === "facts") { title = "Lo sapevi?"; html = `<ul>${cur.facts.map((f) => `<li>${f}</li>`).join("")}</ul>`; say = cur.facts.join(" "); }
-  openCard(title, html, say);
+  openCard(title, html, say, `${cur.id}-${k}`);
   if (!op.includes(k)) { op.push(k); addPoints(3, "curiosità"); save(); drawStop(); }
 }
 function openQuiz() {
   const q = cur.quiz, got = st.stamped.includes(cur.id);
   const say = q.q + " " + q.options.map((o, i) => "Risposta " + "ABC"[i] + ": " + o).join(". ");
   openCard("Quiz: " + cur.name,
-    `<p class="q">${q.q}</p><div class="opts">${q.options.map((o, i) => `<button class="opt${got && i === q.answer ? " right" : ""}" data-i="${i}" ${got ? "disabled" : ""}>${"ABC"[i]}. ${o}</button>`).join("")}</div><div id="fb" class="fb">${got ? "Timbro già ottenuto!" : ""}</div>`, say);
+    `<p class="q">${q.q}</p><div class="opts">${q.options.map((o, i) => `<button class="opt${got && i === q.answer ? " right" : ""}" data-i="${i}" ${got ? "disabled" : ""}>${"ABC"[i]}. ${o}</button>`).join("")}</div><div id="fb" class="fb">${got ? "Timbro già ottenuto!" : ""}</div>`, say, `${cur.id}-quiz`);
   if (got) { $("c-next").classList.remove("hidden"); return; }
   $("c-body").querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => {
     const fb = $("fb");
@@ -157,14 +169,14 @@ $("thumbs").addEventListener("click", (e) => { const b = e.target.closest("butto
 $("quizbtn").onclick = openQuiz;
 document.querySelectorAll(".guide").forEach((g) => {
   g.querySelector(".bubble").textContent = GUIDA[g.dataset.say];
-  g.onclick = () => speak(GUIDA[g.dataset.say]);
+  g.onclick = () => speak(GUIDA[g.dataset.say], `guida-${g.dataset.say}`);
 });
 $("back").onclick = backHome;
 $("prev").onclick = () => step(-1); $("next").onclick = () => step(1);
 $("card-x").onclick = () => closeCard();
 $("c-next").onclick = () => { closeCard(); const n = nextUnstamped(); if (n) openStop(n); else backHome(); };
 $("btn-time").onclick = () => $("timeline").classList.remove("hidden");
-$("btn-intro").onclick = () => speak(INTRO);
+$("btn-intro").onclick = () => speak(INTRO, "intro");
 document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => $(b.dataset.close).classList.add("hidden")));
 $("print").onclick = printCert;
 $("btn-reset").onclick = () => { $("confirm").classList.remove("hidden"); $("cf-no").focus(); };
