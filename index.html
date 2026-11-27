@@ -13,7 +13,7 @@
     <div><h1>Tindari</h1><span>La lezione illustrata</span></div>
   </div>
   <div class="score"><span id="pts"></span><span id="stp"></span></div>
-  <label class="cls" title="Livello dei testi">Classe <select id="sel-classe" aria-label="Classe"></select></label>
+  <button id="btn-classe" class="pill ghost" title="Cambia classe"></button>
   <button id="btn-time" class="pill">Linea del tempo</button>
   <button id="btn-cb" class="pill ghost" aria-pressed="false" title="Colori adatti a chi ha il daltonismo">Daltonismo</button>
   <button id="btn-reset" class="pill ghost" title="Azzera punti e timbri">Ricomincia</button>
@@ -72,6 +72,17 @@
 
 <div id="timeline" class="overlay hidden"><div class="sheet"><button class="x" data-close="timeline">✕</button>
   <h2>La storia di Tindari</h2><ol id="tl-list"></ol></div></div>
+
+<div id="classe-modal" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cm-t"><div class="sheet welcome">
+  <button class="x" id="cm-x" aria-label="Chiudi">✕</button>
+  <img src="img/guida.png" alt="" class="w-avatar">
+  <div class="w-body">
+    <h2 id="cm-t">Benvenuti a Tindari!</h2>
+    <p>In che classe siete? I testi si adattano alla vostra classe.</p>
+    <div id="cm-btns" class="lvls" role="group" aria-label="Scegli la classe"></div>
+    <p class="hint">Puoi cambiare classe in ogni momento dal pulsante in alto.</p>
+  </div>
+</div></div>
 
 <div id="confirm" class="overlay hidden" role="alertdialog" aria-labelledby="cf-t" aria-describedby="cf-d"><div class="sheet small-sheet">
   <h2 id="cf-t">Ricominciare la lezione?</h2>

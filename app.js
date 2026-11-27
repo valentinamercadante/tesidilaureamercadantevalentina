@@ -189,12 +189,16 @@ function setLevel(n) {
   const l = lv();
   document.documentElement.style.setProperty("--fs", l.fs);
   document.documentElement.classList.toggle("caps", l.caps);
-  $("sel-classe").value = n;
+  $("btn-classe").textContent = `Classe ${l.label}`;
+  document.querySelectorAll(".lvl").forEach((b) => b.classList.toggle("on", +b.dataset.n === n));
   const c = $("classe"); if (!c.value.trim() || /^[1-5]ª\s*$/.test(c.value)) c.value = l.label + " ";
   if (cur) { closeCard(); $("s-intro").textContent = tx().story[0]; }
 }
-$("sel-classe").innerHTML = LIVELLI.map((l) => `<option value="${l.n}">${l.label} elementare</option>`).join("");
-$("sel-classe").onchange = (e) => setLevel(+e.target.value);
+$("cm-btns").innerHTML = LIVELLI.map((l) => `<button class="lvl" data-n="${l.n}"><b>${l.label}</b><span>elementare</span></button>`).join("");
+function showClasse() { $("classe-modal").classList.remove("hidden"); (document.querySelector(".lvl.on") || document.querySelector(".lvl")).focus(); }
+$("cm-btns").addEventListener("click", (e) => { const b = e.target.closest(".lvl"); if (b) { setLevel(+b.dataset.n); $("classe-modal").classList.add("hidden"); } });
+$("cm-x").onclick = () => $("classe-modal").classList.add("hidden");
+$("btn-classe").onclick = showClasse;
 setLevel(lv().n);
 
 const CBKEY = "tindari-daltonismo";
@@ -211,9 +215,10 @@ $("cf-yes").onclick = () => {
   $("confirm").classList.add("hidden");
   st = { stamped: [], opened: {}, points: 0, wrong: {} }; save(); closeCard(); hush();
   $("win").classList.add("hidden"); if (cur) backHome(); else drawHome();
+  showClasse();
 };
-$("again").onclick = () => { st = { stamped: [], opened: {}, points: 0, wrong: {} }; save(); $("win").classList.add("hidden"); if (cur) backHome(); else drawHome(); };
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") { if (!$("confirm").classList.contains("hidden")) return $("confirm").classList.add("hidden"); if (!$("card").classList.contains("hidden")) closeCard(); else if (cur) backHome(); } });
+$("again").onclick = () => { st = { stamped: [], opened: {}, points: 0, wrong: {} }; save(); $("win").classList.add("hidden"); if (cur) backHome(); else drawHome(); showClasse(); };
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { if (!$("classe-modal").classList.contains("hidden")) return $("classe-modal").classList.add("hidden"); if (!$("confirm").classList.contains("hidden")) return $("confirm").classList.add("hidden"); if (!$("card").classList.contains("hidden")) closeCard(); else if (cur) backHome(); } });
 window.addEventListener("resize", refit);
 $("mapimg").addEventListener("load", refit); $("photo").addEventListener("load", refit);
 
@@ -227,3 +232,6 @@ $("logo").innerHTML = LOGO; $("cert-logo").innerHTML = LOGO; $("cert-logo2").inn
 $("tl-list").innerHTML = TIMELINE.map(([d, t]) => `<li><b>${d}</b><span>${t}</span></li>`).join("");
 if ("speechSynthesis" in window) speechSynthesis.getVoices();
 drawHome(); refit();
+
+// All'apertura della pagina: scelta della classe
+showClasse();

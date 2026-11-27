@@ -14,7 +14,7 @@ le Case Romane (Isolato IV), la Basilica, il Museo e il Lago Verde con i laghett
 - **Lettura ad alta voce** con una voce italiana naturale (file audio in `audio/`), per i bambini che leggono ancora con fatica. Se un file audio manca, si usa la voce del browser.
 - **Linea del tempo** della storia di Tindari.
 - **Attestato di Piccolo Archeologo** stampabile o salvabile in PDF, con spazio per la firma dello studente e dell'insegnante.
-- **Selettore di classe** (1ª-5ª elementare) in alto: cambia i testi su tre livelli di lettura (1ª-2ª frasi brevissime, 3ª testi base, 4ª-5ª testi più ricchi), la grandezza del carattere (più grande nelle prime classi) e la lettura ad alta voce; in 1ª si usa lo stampatello maiuscolo. La classe scelta compila anche l'attestato.
+- **Scelta della classe** (1ª-5ª elementare) in una finestra che si apre all'ingresso e dopo «Ricomincia» (si può cambiare in ogni momento dal pulsante «Classe» in alto): cambia i testi su tre livelli di lettura (1ª-2ª frasi brevissime, 3ª testi base, 4ª-5ª testi più ricchi), la grandezza del carattere (più grande nelle prime classi) e la lettura ad alta voce; in 1ª si usa lo stampatello maiuscolo. La classe scelta compila anche l'attestato.
 - Pulsante **Daltonismo**: palette sicura (blu e giallo al posto di verde e rosso) e segni oltre al colore (✓ e ✗, forme diverse per le tappe completate). La scelta resta salvata.
 - Pulsante **Ricomincia** per azzerare punti e timbri (utile sui computer condivisi).
 
