@@ -179,6 +179,14 @@ $("btn-time").onclick = () => $("timeline").classList.remove("hidden");
 $("btn-intro").onclick = () => speak(INTRO, "intro");
 document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => $(b.dataset.close).classList.add("hidden")));
 $("print").onclick = printCert;
+const CBKEY = "tindari-daltonismo";
+function setCB(on) {
+  document.documentElement.classList.toggle("cb", on);
+  $("btn-cb").classList.toggle("on", on); $("btn-cb").setAttribute("aria-pressed", on);
+  localStorage.setItem(CBKEY, on ? "1" : "0");
+}
+$("btn-cb").onclick = () => setCB(!document.documentElement.classList.contains("cb"));
+setCB(localStorage.getItem(CBKEY) === "1");
 $("btn-reset").onclick = () => { $("confirm").classList.remove("hidden"); $("cf-no").focus(); };
 $("cf-no").onclick = () => $("confirm").classList.add("hidden");
 $("cf-yes").onclick = () => {

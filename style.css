@@ -102,6 +102,26 @@ main { flex: 1; min-height: 0; position: relative; }
 #quizbtn { flex: none; margin-top: 8px; position: sticky; bottom: 0; }
 #quizbtn.done { background: var(--olive); }
 
+/* ---- Modalità daltonismo: palette sicura (blu / giallo / arancione scuro) + segni oltre al colore ---- */
+.pill.on { background: var(--ink); color: var(--paper); }
+@media screen {
+  html.cb { --terra: #0072B2; --olive: #0072B2; --ochre: #F0E442; }
+  html.cb .pin .drop { background: #F0E442; border-color: var(--ink); }
+  html.cb .pin .n { color: var(--ink); }
+  html.cb .pin.done .drop { background: #0072B2; border-radius: 6px; transform: none; border-color: #fff; }
+  html.cb .pin.done .n { color: #fff; }
+  html.cb .pin::after { border-color: #0072B2; }
+  html.cb .legend .num { background: #F0E442; color: var(--ink); border: 2px solid var(--ink); }
+  html.cb .legend .done .num { background: #0072B2; color: #fff; }
+  html.cb .hot { color: var(--ink); } html.cb .hot.done { color: #fff; }
+  html.cb #checklist .dot { color: var(--ink); } html.cb #checklist li.on .dot { color: #fff; }
+  html.cb #checklist li.on { background: #d6e9f7; }
+  html.cb .opt.right { background: #cfe6f7; border: 4px solid #0072B2; }
+  html.cb .opt.wrong { background: #fbe3c4; border: 3px dashed #B34700; opacity: 1; }
+  html.cb .fb.good { color: #00558a; } html.cb .fb.bad { color: #B34700; }
+  html.cb .pill:not(.ghost):not(.on) { background: #F0E442; }
+}
+
 /* ---- Guida ---- */
 .guide { display: flex; align-items: flex-end; gap: 6px; background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; }
 .guide img { height: 190px; width: auto; display: block; flex: none; filter: drop-shadow(0 6px 6px rgba(40,30,20,.35)); transition: transform .2s; transform-origin: bottom center; }
@@ -125,6 +145,7 @@ main { flex: 1; min-height: 0; position: relative; }
 .opt { font: inherit; font-size: 1.05rem; text-align: left; padding: 11px 14px; border: 2px solid var(--ink); border-radius: 12px; background: #fff9; cursor: pointer; }
 .opt:hover:not(:disabled) { background: var(--paper-d); }
 .opt.right { background: #cfe0a6; } .opt.wrong { background: #eec0b0; opacity: .85; }
+.opt.right::before { content: "✓ "; font-weight: 800; } .opt.wrong::before { content: "✗ "; font-weight: 800; }
 .fb { margin-top: 8px; font-weight: 700; min-height: 1.4em; } .fb.good { color: var(--olive); } .fb.bad { color: var(--terra); }
 .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .float { position: fixed; left: 50%; top: 80px; transform: translateX(-50%); background: var(--ochre); color: var(--ink); font-weight: 800; font-size: 1.3rem; padding: 6px 20px; border: 3px solid var(--ink); border-radius: 30px; z-index: 60; animation: fl 1.6s ease-out forwards; }
