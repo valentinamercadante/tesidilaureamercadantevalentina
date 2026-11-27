@@ -99,7 +99,7 @@ main { flex: 1; min-height: 0; position: relative; }
 .btn { font: inherit; font-weight: 700; font-size: 1rem; padding: 11px 18px; border: 2px solid var(--ink); border-radius: 30px; background: var(--terra); color: var(--paper); cursor: pointer; box-shadow: 0 4px 0 var(--ink); flex: 1; }
 .btn.alt { background: var(--sea); }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
-#quizbtn { flex: none; margin-top: 8px; position: sticky; bottom: 0; }
+#quizbtn { flex: none; margin-top: 8px; }
 #quizbtn.done { background: var(--olive); }
 
 /* ---- Modalità daltonismo: palette sicura (blu / giallo / arancione scuro) + segni oltre al colore ---- */
@@ -129,9 +129,10 @@ main { flex: 1; min-height: 0; position: relative; }
 .guide .bubble { position: relative; order: -1; margin-bottom: 70px; max-width: 210px; background: var(--paper); border: 3px solid var(--ink); border-radius: 16px; padding: 8px 12px; font-size: .88rem; line-height: 1.35; box-shadow: 0 3px 0 var(--ink); }
 .guide .bubble::after { content: ""; position: absolute; right: -11px; bottom: 14px; border: 7px solid transparent; border-left: 11px solid var(--ink); }
 .home-guide { position: absolute; right: 16px; bottom: 6px; z-index: 4; }
-.side-guide { margin-top: auto; align-self: center; margin-bottom: 4px; }
-.side-guide img { height: 140px; } .side-guide .bubble { margin-bottom: 44px; max-width: 170px; font-size: .82rem; }
-.home-guide img { height: 175px; }
+.side-guide { margin-top: auto; align-self: stretch; justify-content: center; align-items: flex-start; height: clamp(120px, 20vh, 210px); overflow: hidden; }
+.side-guide img { height: clamp(250px, 42vh, 380px); } .side-guide .bubble { margin: clamp(8px, 3vh, 30px) 0 0; max-width: 170px; font-size: .85rem; }
+.side-guide .bubble::after { bottom: auto; top: 18px; }
+.home-guide img { height: clamp(200px, 40vh, 340px); } .home-guide .bubble { margin-bottom: clamp(80px, 14vh, 130px); max-width: 240px; font-size: .95rem; }
 
 /* ---- Schede ---- */
 #card { position: fixed; inset: 58px 0 0 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center; padding: 14px; pointer-events: none; }
@@ -202,5 +203,5 @@ main { flex: 1; min-height: 0; position: relative; }
   #stop { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
   #side { border-left: 0; border-top: 4px solid var(--ink); max-height: 46vh; }
   .brand span, .score #stp { display: none; } #intro { display: none; }
-  .nav { display: none; } .side-guide { display: none; } .home-guide img { height: 120px; } .home-guide .bubble { display: none; }
+  .nav { display: none; } .side-guide { display: none; } .home-guide img { height: 150px; } .home-guide .bubble { display: none; }
 }
