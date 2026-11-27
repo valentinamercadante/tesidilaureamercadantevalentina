@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tindari – La lezione illustrata</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="-40 -40 80 80" id="logo" aria-hidden="true"></svg>
+    <div><h1>Tindari</h1><span>La lezione illustrata</span></div>
+  </div>
+  <div class="score"><span id="pts"></span><span id="stp"></span></div>
+  <button id="btn-time" class="pill">Linea del tempo</button>
+  <button id="btn-reset" class="pill ghost" title="Azzera punti e timbri">Ricomincia</button>
+  <button id="btn-intro" class="pill ghost" aria-label="Ascolta l'introduzione">Ascolta</button>
+</header>
+
+<main>
+  <!-- MAPPA -->
+  <section id="home">
+    <aside id="intro">
+      <div class="banner"><b>Esplora la mappa</b><span>Tocca un segnaposto, oppure scegli dall'elenco</span></div>
+      <ol class="legend" id="legend"></ol>
+    </aside>
+    <div id="mapbox"><div id="mapframe">
+      <img id="mapimg" alt="Mappa illustrata del parco archeologico di Tindari" draggable="false">
+      <div id="pins"></div>
+    </div></div>
+    <button class="guide home-guide" data-say="home" aria-label="Ascolta la guida"><span class="bubble"></span><img src="img/guida.png" alt="La guida illustrata"></button>
+  </section>
+
+  <!-- TAPPA -->
+  <section id="stop" class="hidden">
+    <div id="stage">
+      <div id="frame"><img id="photo" alt="" draggable="false"><div id="hots"></div></div>
+      <div id="thumbs"></div>
+      <button class="nav l" id="prev" aria-label="Tappa precedente">‹</button>
+      <button class="nav r" id="next" aria-label="Tappa successiva">›</button>
+    </div>
+    <aside id="side">
+      <button id="back" class="pill ghost">← Torna alla mappa</button>
+      <span class="era" id="era"></span>
+      <h2 id="s-title"></h2>
+      <p id="s-intro"></p>
+      <p class="small">Cerca i punti nell'immagine:</p>
+      <ul id="checklist"></ul>
+      <button class="guide side-guide" data-say="stop" aria-label="Ascolta la guida"><span class="bubble"></span><img src="img/guida.png" alt="La guida illustrata"></button>
+      <button id="quizbtn" class="btn">Metti alla prova: quiz</button>
+    </aside>
+  </section>
+</main>
+
+<footer id="credits">
+  <img id="kore-logo" src="img/logo-kore.png" alt="Università degli Studi di Enna «Kore»">
+  <div class="info">
+    <button id="info-btn" aria-describedby="info-tip" aria-expanded="false"><span aria-hidden="true">i</span> Informazioni</button>
+    <div id="info-tip" role="tooltip"></div>
+  </div>
+</footer>
+
+<div id="card" class="hidden"><div class="card-in">
+  <button class="x" id="card-x" aria-label="Chiudi">✕</button>
+  <h3 id="c-title"></h3>
+  <div id="c-body"></div>
+  <div class="row"><button id="c-listen" class="btn alt">Ascolta</button><button id="c-next" class="btn hidden">Prossima tappa ➜</button></div>
+</div></div>
+
+<div id="timeline" class="overlay hidden"><div class="sheet"><button class="x" data-close="timeline">✕</button>
+  <h2>La storia di Tindari</h2><ol id="tl-list"></ol></div></div>
+
+<div id="confirm" class="overlay hidden" role="alertdialog" aria-labelledby="cf-t" aria-describedby="cf-d"><div class="sheet small-sheet">
+  <h2 id="cf-t">Ricominciare la lezione?</h2>
+  <p id="cf-d">Punti e timbri verranno azzerati e si riparte dalla mappa.</p>
+  <div class="row"><button id="cf-yes" class="btn">Sì, ricomincia</button><button id="cf-no" class="btn alt">No, annulla</button></div>
+</div></div>
+
+<div id="win" class="overlay hidden"><div class="sheet"><button class="x" data-close="win">✕</button>
+  <h2>Missione compiuta!</h2><p id="win-pts"></p>
+  <label for="classe" class="lbl">Classe</label>
+  <input id="classe" type="text" placeholder="es. 4ª B" maxlength="20" autocomplete="off">
+  <p class="hint">Stampate l'attestato o salvatelo in PDF: poi ogni studente lo firma a mano nello spazio apposito.</p>
+  <div class="row"><button id="print" class="btn">Stampa / salva PDF</button><button id="again" class="btn alt">Ricomincia</button></div></div></div>
+
+<div id="cert"><div class="cert-page"><div class="cert-frame">
+  <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+  <div class="cert-head">
+    <svg id="cert-logo" viewBox="-40 -40 80 80"></svg>
+    <div><small>Parco Archeologico di Tindari</small><h1>Attestato di Piccolo Archeologo</h1></div>
+    <svg id="cert-logo2" viewBox="-40 -40 80 80"></svg>
+  </div>
+  <p class="lead">si conferisce alla classe</p>
+  <div id="cert-class"></div>
+  <p class="body">che ha esplorato le tappe del parco, scoperto i suoi segreti<br>e superato tutte le prove, raccogliendo <b id="cert-pts"></b> punti.</p>
+  <div id="cert-stops"></div>
+  <div class="cert-foot">
+    <div class="sig"><div class="line"></div><span>Firma dello studente</span></div>
+    <div class="sig"><div class="line"></div><span>Firma dell'insegnante</span></div>
+    <div class="seal"><b>★</b><span>Tindari</span></div>
+    <div class="dt"><div id="cert-date"></div><span>Data</span></div>
+  </div>
+  <div class="cert-credit"><span id="cert-kore"></span><em id="cert-by"></em></div>
+</div></div></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
