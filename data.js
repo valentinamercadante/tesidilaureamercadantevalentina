@@ -175,6 +175,6 @@ const CREDITS = {
 
 // Frasi della guida (fumetto + lettura vocale)
 const GUIDA = {
-  home: "Ciao! Sono la Valentina. Toccate un segnaposto sulla mappa per iniziare!",
+  home: "Ciao! Sono Valentina. Toccate un segnaposto sulla mappa per iniziare!",
   stop: "Cercate i punti «?» nell'immagine, poi fate il quiz!",
 };
