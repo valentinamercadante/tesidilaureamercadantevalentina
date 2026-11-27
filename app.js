@@ -4,6 +4,10 @@ let st = { stamped: [], opened: {}, points: 0, wrong: {} };
 try { Object.assign(st, JSON.parse(localStorage.getItem(KEY)) || {}); } catch {}
 const save = () => localStorage.setItem(KEY, JSON.stringify(st));
 let cur = null, imgIdx = 0;
+const LVKEY = "tindari-classe";
+let level = +localStorage.getItem(LVKEY) || 3;
+const lv = () => LIVELLI.find((l) => l.n === level) || LIVELLI[2];
+const tx = () => testi(cur, lv().tier);
 
 const LOGO = `<circle r="36" fill="#d9a441" stroke="#3a2a1d" stroke-width="3"/>
   <rect x="-18" y="-22" width="36" height="7" rx="2" fill="#f4ecd8" stroke="#3a2a1d" stroke-width="2.4"/>
@@ -67,7 +71,7 @@ function openStop(id) {
   cur = SPOTS.find((s) => s.id === id); imgIdx = 0;
   $("home").classList.add("hidden"); $("stop").classList.remove("hidden");
   $("era").textContent = cur.era; $("s-title").textContent = cur.name;
-  $("s-intro").textContent = cur.story[0];
+  $("s-intro").textContent = tx().story[0];
   drawStop();
 }
 function drawStop() {
@@ -113,17 +117,18 @@ function openHot(k) {
   const op = (st.opened[cur.id] = st.opened[cur.id] || []);
   const hot = cur.hs.find((h) => h.k === k);
   let title, html, say;
-  if (k === "story") { title = hot.label + " – la storia"; html = cur.story.map((p) => `<p>${p}</p>`).join(""); say = cur.story.join(" "); }
-  if (k === "word") { title = "Parola nuova: " + cur.word[0]; html = `<p>${cur.word[1]}</p>`; say = "Parola nuova: " + cur.word.join(". "); }
-  if (k === "facts") { title = "Lo sapevi?"; html = `<ul>${cur.facts.map((f) => `<li>${f}</li>`).join("")}</ul>`; say = cur.facts.join(" "); }
-  openCard(title, html, say, `${cur.id}-${k}`);
+  const t = tx();
+  if (k === "story") { title = hot.label + " – la storia"; html = t.story.map((p) => `<p>${p}</p>`).join(""); say = t.story.join(" "); }
+  if (k === "word") { title = "Parola nuova: " + t.word[0]; html = `<p>${t.word[1]}</p>`; say = "Parola nuova: " + t.word.join(". "); }
+  if (k === "facts") { title = "Lo sapevi?"; html = `<ul>${t.facts.map((f) => `<li>${f}</li>`).join("")}</ul>`; say = t.facts.join(" "); }
+  openCard(title, html, say, `${cur.id}-${k}-${lv().tier}`);
   if (!op.includes(k)) { op.push(k); addPoints(3, "curiosità"); save(); drawStop(); }
 }
 function openQuiz() {
-  const q = cur.quiz, got = st.stamped.includes(cur.id);
+  const q = { ...cur.quiz, q: tx().q }, got = st.stamped.includes(cur.id);
   const say = q.q + " " + q.options.map((o, i) => "Risposta " + "ABC"[i] + ": " + o).join(". ");
   openCard("Quiz: " + cur.name,
-    `<p class="q">${q.q}</p><div class="opts">${q.options.map((o, i) => `<button class="opt${got && i === q.answer ? " right" : ""}" data-i="${i}" ${got ? "disabled" : ""}>${"ABC"[i]}. ${o}</button>`).join("")}</div><div id="fb" class="fb">${got ? "Timbro già ottenuto!" : ""}</div>`, say, `${cur.id}-quiz`);
+    `<p class="q">${q.q}</p><div class="opts">${q.options.map((o, i) => `<button class="opt${got && i === q.answer ? " right" : ""}" data-i="${i}" ${got ? "disabled" : ""}>${"ABC"[i]}. ${o}</button>`).join("")}</div><div id="fb" class="fb">${got ? "Timbro già ottenuto!" : ""}</div>`, say, `${cur.id}-quiz-${lv().tier}`);
   if (got) { $("c-next").classList.remove("hidden"); return; }
   $("c-body").querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => {
     const fb = $("fb");
@@ -179,6 +184,19 @@ $("btn-time").onclick = () => $("timeline").classList.remove("hidden");
 $("btn-intro").onclick = () => speak(INTRO, "intro");
 document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => $(b.dataset.close).classList.add("hidden")));
 $("print").onclick = printCert;
+function setLevel(n) {
+  level = n; localStorage.setItem(LVKEY, n);
+  const l = lv();
+  document.documentElement.style.setProperty("--fs", l.fs);
+  document.documentElement.classList.toggle("caps", l.caps);
+  $("sel-classe").value = n;
+  const c = $("classe"); if (!c.value.trim() || /^[1-5]ª\s*$/.test(c.value)) c.value = l.label + " ";
+  if (cur) { closeCard(); $("s-intro").textContent = tx().story[0]; }
+}
+$("sel-classe").innerHTML = LIVELLI.map((l) => `<option value="${l.n}">${l.label} elementare</option>`).join("");
+$("sel-classe").onchange = (e) => setLevel(+e.target.value);
+setLevel(lv().n);
+
 const CBKEY = "tindari-daltonismo";
 function setCB(on) {
   document.documentElement.classList.toggle("cb", on);

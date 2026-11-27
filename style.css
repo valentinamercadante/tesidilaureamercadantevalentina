@@ -205,3 +205,13 @@ main { flex: 1; min-height: 0; position: relative; }
   .brand span, .score #stp { display: none; } #intro { display: none; }
   .nav { display: none; } .side-guide { display: none; } .home-guide img { height: 150px; } .home-guide .bubble { display: none; }
 }
+
+/* ---- Selettore di classe: dimensione del carattere e stampatello maiuscolo ---- */
+:root { --fs: 1.1; }
+.cls { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: .9rem; }
+.cls select { font: inherit; font-weight: 700; font-size: .9rem; padding: 6px 10px; border: 2px solid var(--ink); border-radius: 20px; background: var(--paper); color: var(--ink); cursor: pointer; }
+#s-intro, #c-body, .opt, #checklist li, .guide .bubble { font-size: calc(1rem * var(--fs)); }
+.guide .bubble { font-size: calc(.8rem * var(--fs)); }
+html.caps #s-intro, html.caps #c-body, html.caps .opt, html.caps #checklist li, html.caps .guide .bubble, html.caps .fb { text-transform: uppercase; letter-spacing: .02em; }
+@media (max-width: 860px) { .cls { font-size: 0; } .cls select { font-size: .85rem; } }
+.side-guide .bubble { font-size: .85rem; }

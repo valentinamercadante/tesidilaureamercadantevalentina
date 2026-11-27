@@ -181,4 +181,104 @@ const GUIDA = {
 
 // Versione degli audio: aumentarla ogni volta che si rigenerano i file in audio/,
 // così i browser non riutilizzano le vecchie copie salvate in cache.
-const AUDIO_V = 2;
+const AUDIO_V = 3;
+
+// ---------------------------------------------------------------------------
+// LIVELLI DI CLASSE
+// I testi base in SPOTS sono il livello "b" (3ª). Qui sotto le varianti:
+//   a = 1ª-2ª: frasi brevissime, parole semplici
+//   c = 4ª-5ª: testi più ricchi, lessico e dettagli in più
+// Ogni classe ha anche la sua dimensione del carattere (fs); la 1ª usa lo stampatello maiuscolo.
+// ---------------------------------------------------------------------------
+const LIVELLI = [
+  { n: 1, label: "1ª", tier: "a", fs: 1.3, caps: true },
+  { n: 2, label: "2ª", tier: "a", fs: 1.2, caps: false },
+  { n: 3, label: "3ª", tier: "b", fs: 1.1, caps: false },
+  { n: 4, label: "4ª", tier: "c", fs: 1.0, caps: false },
+  { n: 5, label: "5ª", tier: "c", fs: 1.0, caps: false },
+];
+
+const VARIANTI = {
+  santuario: {
+    a: { q: "Come si chiama la statua con il viso scuro?",
+      story: ["Sulla collina c'è una grande chiesa.", "Ha una cupola color oro.", "Dentro c'è la Madonna Nera. Tante persone vanno a trovarla."],
+      word: ["Pellegrino", "Una persona che fa un lungo viaggio per andare in un posto speciale."],
+      facts: ["Da lassù si vede il mare.", "Con il cannocchiale si guarda lontano."] },
+    c: { q: "Quale statua dal volto scuro è venerata nel Santuario di Tindari?",
+      story: ["Il Santuario della Madonna del Tindari sorge su una rupe a picco sul mare ed è uno dei luoghi di pellegrinaggio più importanti della Sicilia.",
+              "Custodisce la Madonna Nera, una statua dal volto scuro molto venerata. Ogni anno, soprattutto a settembre, arrivano pellegrini da tutta l'isola e anche da più lontano.",
+              "Il santuario domina il paesaggio: la sua cupola dorata si vede da lontano e fa da punto di riferimento."],
+      word: ["Pellegrinaggio", "Viaggio compiuto per devozione verso un luogo sacro. Chi lo compie si chiama pellegrino."],
+      facts: ["Dalla terrazza panoramica lo sguardo arriva ai laghetti di Marinello e, nelle giornate limpide, alle isole Eolie.",
+              "Il cannocchiale sul belvedere permette di osservare il paesaggio nei dettagli: provate a individuare il mare, la sabbia e i laghetti."] },
+  },
+  teatro: {
+    a: { q: "Come si chiama la parte con i gradini per il pubblico?",
+      story: ["Questo è un teatro molto antico.", "Le persone si sedevano sui gradini.", "Guardavano gli attori recitare."],
+      word: ["Cavea", "I gradini dove si siede il pubblico."],
+      facts: ["Dai gradini si vede il mare.", "Anche oggi qui si fanno gli spettacoli."] },
+    c: { q: "Come si chiama la parte a semicerchio del teatro dove si siede il pubblico?",
+      story: ["Il teatro di Tindari fu costruito dai Greci tra il IV e il III secolo a.C., sfruttando la pendenza naturale della collina: i gradini poggiano direttamente sul pendio.",
+              "In età romana fu modificato per ospitare anche altri spettacoli, come i combattimenti dei gladiatori. Oggi è usato per gli spettacoli estivi, con il mare sullo sfondo."],
+      word: ["Cavea", "La parte a semicerchio del teatro, con i gradini dove si siede il pubblico."],
+      facts: ["Davanti al teatro si apre il mare: gli spettatori avevano un panorama bellissimo dietro gli attori.",
+              "I teatri antichi erano progettati con grande attenzione all'acustica: anche chi sedeva in alto riusciva a sentire bene le voci."] },
+  },
+  domus: {
+    a: { q: "Con che cosa si fa un mosaico?",
+      story: ["Qui vivevano le famiglie dei Romani.", "Le case sono fatte con grandi pietre.", "Si chiamano domus."],
+      word: ["Domus", "La casa di una famiglia romana."],
+      facts: ["Dietro gli scavi ci sono le case di oggi.", "I pavimenti erano fatti con tanti pezzetti colorati."] },
+    c: { q: "Con che cosa si realizza un mosaico?",
+      story: ["In quest'area, chiamata Isolato IV, gli archeologi hanno scoperto le domus: le abitazioni delle famiglie romane benestanti, costruite con grandi blocchi di pietra ben squadrati e organizzate attorno a un cortile.",
+              "Un gruppo di case unite era detto insula, che in latino significa «isola»: un isolato circondato dalle strade, come i nostri quartieri."],
+      word: ["Domus", "La casa di una famiglia romana benestante, con le stanze disposte attorno a un cortile."],
+      facts: ["Dietro gli scavi si vedono le case del paese di oggi: la città moderna vive accanto a quella antica.",
+              "I pavimenti di alcune stanze erano decorati con mosaici, composti da moltissime piccole tessere di pietra colorata."] },
+  },
+  basilica: {
+    a: { q: "Chi ha costruito la Basilica?",
+      story: ["Qui c'era un grande edificio dei Romani.", "Oggi restano solo grandi archi di pietra.", "Passa sotto l'arco: è altissimo!"],
+      word: ["Basilica", "Un grande edificio dove i Romani si incontravano."],
+      facts: ["Dietro gli archi si vede una cupola d'oro.", "Gli archi romani stanno in piedi da duemila anni."] },
+    c: { q: "Quale popolo costruì la Basilica di Tindari?",
+      story: ["La Basilica fu costruita in età romana, quando Tindari si arricchì di grandi edifici pubblici. Era un luogo coperto e monumentale, centro della vita cittadina: ci si incontrava, si discuteva e si trattavano affari.",
+              "Oggi ne restano imponenti archi in blocchi di pietra, che mostrano l'abilità dei costruttori romani."],
+      word: ["Basilica", "Nell'antica Roma, grande edificio pubblico coperto, sede di incontri e affari. Solo più tardi il termine è passato a indicare anche certe chiese."],
+      facts: ["Dietro gli archi spunta la cupola dorata del Santuario: in uno stesso sguardo si vedono epoche molto diverse.",
+              "L'arco permette di coprire grandi aperture scaricando il peso sui lati: per questo molte opere romane sono arrivate fino a noi."] },
+  },
+  antiquarium: {
+    a: { q: "Chi studia gli oggetti antichi trovati sotto terra?",
+      story: ["Nel museo ci sono tanti oggetti antichi.", "Ci sono vasi, anfore e monete.", "Gli archeologi li hanno trovati sotto terra."],
+      word: ["Reperto", "Un oggetto antico trovato sotto terra."],
+      facts: ["Il pannello spiega dove sono stati trovati gli oggetti.", "Gli oggetti vengono puliti con cura."] },
+    c: { q: "Quale professionista studia gli oggetti antichi trovati negli scavi?",
+      story: ["L'Antiquarium conserva i reperti emersi dagli scavi di Tindari: vasi, anfore, monete, statue e oggetti d'uso quotidiano.",
+              "Gli archeologi li studiano come indizi: da ogni oggetto ricavano informazioni su come vivevano, lavoravano e commerciavano le persone del passato."],
+      word: ["Reperto", "Qualsiasi oggetto antico recuperato durante uno scavo e studiato per ricostruire il passato."],
+      facts: ["I pannelli sulle pareti spiegano dove e come sono stati trovati gli oggetti, con mappe e disegni.",
+              "Prima dell'esposizione i reperti vengono puliti, catalogati e, se serve, restaurati."] },
+  },
+  laghi: {
+    a: { q: "Che cosa c'è tra i laghetti e il mare?",
+      story: ["Vicino al mare ci sono dei laghetti.", "Uno si chiama Lago Verde.", "Una striscia di sabbia li divide dal mare."],
+      word: ["Laguna", "Un piccolo lago vicino al mare."],
+      facts: ["Qui vivono uccelli e pesci.", "Il vento sposta la sabbia."] },
+    c: { q: "Che cosa separa le lagune di Marinello dal mare?",
+      story: ["Ai piedi della rupe di Tindari si estende la Riserva Naturale Orientata di Marinello: un insieme di piccole lagune, tra cui il Lago Verde, separate dal mare da un cordone di sabbia.",
+              "È un ambiente delicato e ricco di vita: ospita uccelli, pesci e piante adatte al terreno sabbioso. Vento e onde ne modellano di continuo le dune."],
+      word: ["Laguna", "Specchio d'acqua poco profondo, separato dal mare da una stretta striscia di terra, di solito sabbiosa."],
+      facts: ["Una riserva naturale è un'area protetta: si osserva senza disturbare e senza lasciare rifiuti.",
+              "Alcuni uccelli migratori fanno sosta qui durante i loro lunghi viaggi."] },
+  },
+};
+
+// Testi di una tappa per il livello richiesto ("a", "b" o "c"); "b" = testi base.
+function testi(spot, tier) {
+  const v = ((VARIANTI[spot.id] || {})[tier]) || {};
+  return {
+    story: v.story || spot.story, word: v.word || spot.word, facts: v.facts || spot.facts,
+    q: v.q || spot.quiz.q,
+  };
+}
