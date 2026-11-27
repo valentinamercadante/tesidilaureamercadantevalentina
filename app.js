@@ -24,7 +24,7 @@ function speakTTS(t) {
 function speak(t, key) {
   hush();
   if (!key) return speakTTS(t);
-  const a = (player = new Audio(`audio/${key}.mp3`));
+  const a = (player = new Audio(`audio/${key}.mp3?v=${AUDIO_V}`));
   a.onerror = () => { if (player === a) speakTTS(t); };
   a.play().catch(() => {});
 }

@@ -178,3 +178,7 @@ const GUIDA = {
   home: "Ciao! Sono Valentina. Toccate un segnaposto sulla mappa per iniziare!",
   stop: "Cercate i punti «?» nell'immagine, poi fate il quiz!",
 };
+
+// Versione degli audio: aumentarla ogni volta che si rigenerano i file in audio/,
+// così i browser non riutilizzano le vecchie copie salvate in cache.
+const AUDIO_V = 2;
