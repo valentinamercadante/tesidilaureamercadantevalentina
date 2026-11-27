@@ -165,10 +165,10 @@ const TIMELINE = [
 const INTRO = "Benvenuti a Tindari! Toccate i segnaposto sulla mappa per visitare le tappe. In ogni immagine cercate i punti da scoprire, poi rispondete al quiz per ottenere il timbro.";
 
 // Crediti mostrati nel piè di pagina (tooltip "Informazioni").
-// Il logo va salvato come img/logo-kore.png (se manca, appare il nome dell'università).
+// Il logo va salvato come img/logo-kore.svg (se manca, appare il nome dell'università).
 const CREDITS = {
   autore: "Valentina Mercadante",
-  annoLaurea: "",            // es. "2025" – se vuoto, l'anno non viene mostrato
+  annoLaurea: "2026/2027",   // anno accademico; se vuoto, non viene mostrato
   ateneo: "Università degli Studi di Enna «Kore»",
   disclaimer: "Materiale didattico a scopo illustrativo. Le immagini sono rielaborazioni a fumetto e i testi sono semplificati per i bambini: non sostituiscono la visita né le fonti ufficiali del Parco Archeologico di Tindari.",
 };

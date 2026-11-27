@@ -39,11 +39,13 @@ Quasi tutto si modifica in `data.js`:
 - **Testi e quiz** di ogni tappa;
 - **Posizione** dei segnaposto (`pin`) e dei punti «?» (`hs`), in percentuale rispetto all'immagine;
 - **Crediti** nel tooltip «Informazioni» (`CREDITS`): autore, anno di laurea, ateneo e disclaimer;
-- **Logo** dell'università: salvarlo come `img/logo-kore.png` (se manca compare il nome a testo).
+- **Logo** dell'università: `img/logo-kore.svg` (se manca compare il nome a testo).
 
 ## Crediti e disclaimer
 
-Progetto a cura di **Valentina Mercadante** – Università degli Studi di Enna «Kore».
+Progetto a cura di **Valentina Mercadante** – Università degli Studi di Enna «Kore», anno accademico 2026/2027.
+
+Il logo dell'Università degli Studi di Enna «Kore» è di proprietà dell'ateneo ed è riportato a solo scopo di identificazione.
 
 Materiale didattico a scopo illustrativo. Le immagini sono rielaborazioni a fumetto e i testi sono
 semplificati per i bambini: non sostituiscono la visita né le fonti ufficiali del Parco Archeologico di Tindari.

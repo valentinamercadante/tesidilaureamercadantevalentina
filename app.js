@@ -143,7 +143,7 @@ async function printCert() {
   $("cert-stops").innerHTML = SPOTS.map((s) => `<figure><img src="${s.images[0].src}" alt=""><span class="star">★</span><figcaption>${s.name}</figcaption></figure>`).join("");
   $("cert-by").textContent = `Progetto a cura di ${CREDITS.autore} · ${CREDITS.ateneo}`;
   const k = $("cert-kore"); k.innerHTML = "";
-  const logo = new Image(); logo.alt = CREDITS.ateneo; logo.src = "img/logo-kore.png";
+  const logo = new Image(); logo.alt = CREDITS.ateneo; logo.src = "img/logo-kore.svg";
   try { await logo.decode(); k.appendChild(logo); } catch { /* senza logo: il nome è già nella riga accanto */ }
   await Promise.all([...document.querySelectorAll("#cert-stops img")].map((i) => i.decode().catch(() => {})));
   window.print();
@@ -179,7 +179,7 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") { if (!$("
 window.addEventListener("resize", refit);
 $("mapimg").addEventListener("load", refit); $("photo").addEventListener("load", refit);
 
-$("info-tip").innerHTML = `<p>Progetto a cura di <b>${CREDITS.autore}</b>${CREDITS.annoLaurea ? `, laureata nel <b>${CREDITS.annoLaurea}</b>` : ""}.</p><p>${CREDITS.ateneo}</p><p>${CREDITS.disclaimer}</p>`;
+$("info-tip").innerHTML = `<p>Progetto a cura di <b>${CREDITS.autore}</b>${CREDITS.annoLaurea ? `, laureata nell'anno accademico <b>${CREDITS.annoLaurea}</b>` : ""}.</p><p>${CREDITS.ateneo}</p><p>${CREDITS.disclaimer}</p>`;
 $("info-btn").onclick = (e) => { const s = $("info-tip").classList.toggle("show"); e.currentTarget.setAttribute("aria-expanded", s); };
 document.addEventListener("click", (e) => { if (!e.target.closest(".info")) $("info-tip").classList.remove("show"); });
 const koreFallback = () => { const l = $("kore-logo"); if (!l) return; const t = document.createElement("span"); t.className = "kore-text"; t.textContent = CREDITS.ateneo; l.replaceWith(t); };
